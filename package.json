@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti/issues"
   },
-  "homepage": "https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti#readme"
+  "homepage": "https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
 }
