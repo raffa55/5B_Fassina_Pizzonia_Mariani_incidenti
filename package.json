@@ -1,0 +1,19 @@
+{
+  "name": "5b_fassina_pizzonia_mariani_incidenti",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti/issues"
+  },
+  "homepage": "https://github.com/raffa55/5B_Fassina_Pizzonia_Mariani_incidenti#readme"
+}
