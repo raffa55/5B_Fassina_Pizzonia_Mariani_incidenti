@@ -1,5 +1,5 @@
 import{ create_form,create_table } from "./components.js";
-
+import{Incidente} from "./classes.js";
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
 
@@ -26,4 +26,16 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       const marker = L.marker(place.coords).addTo(map);
       marker.bindPopup(`<b>${place.name}</b>`);
    });
+
+   document.getElementById("button_invia").onclick=()=>{
+      let dati_input = conf_data.config_input.map((element)=>{
+         let dato_input=document.getElementById(element[0]).value;
+         document.getElementById(element[0]).value = "";
+         return dato_input
+      
+      })
+      let nuovo_incidente = new Incidente(dati_input[0],dati_input[1],dati_input[2],dati_input[3],dati_input[4]);
+   }
+
 })
+

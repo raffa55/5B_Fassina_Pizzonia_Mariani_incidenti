@@ -11,7 +11,7 @@ const create_form = () => {
         },
         render: () => {
             let line = input_element.map((element) => {return `<div>${element[0]} <input id="${element[0]}" type="element[1"></div>`}).join("");
-            line += `<div><button type="button" id="button_invia"></div>`
+            line += `<div><button type="button" id="button_invia">Invia</div>`
             document.getElementById("div_form").innerHTML = line;       
         }
     }
