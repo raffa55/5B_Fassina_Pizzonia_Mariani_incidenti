@@ -3,15 +3,18 @@ Classi:
     
     Incidente
         --Attributi--
+        
         indirizzo (str)
         targhe (list)(str)
         num_morti (int)
         num_feriti (int)
         data (date(ISOString))
+        
         --Metodi--
         constructor(indirizzzo,targhe,num_morti,num_feriti,data)
 
 Componenti
+
     Form
         --Private--
         binding_element
