@@ -1,5 +1,6 @@
 # 5B_Fassina_Pizzonia_Mariani_incidenti
 Classi:
+    
     Incidente
         --Attributi--
         indirizzo (str)
@@ -7,7 +8,6 @@ Classi:
         num_morti (int)
         num_feriti (int)
         data (date(ISOString))
-
         --Metodi--
         constructor(indirizzzo,targhe,num_morti,num_feriti,data)
 
