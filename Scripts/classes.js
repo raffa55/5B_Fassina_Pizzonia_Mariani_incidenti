@@ -8,3 +8,5 @@ class Incidente {
         this.numero_morti = numero_morti
     }
 }
+
+export{Incidente};
