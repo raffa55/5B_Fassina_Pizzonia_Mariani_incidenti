@@ -28,7 +28,7 @@ Componenti
     Table
         --Private--
         binding_element
-        header_element
+        table_data
 
         --Pubbliche--
         bind_element(new_element)
