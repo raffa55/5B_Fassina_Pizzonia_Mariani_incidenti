@@ -1,11 +1,10 @@
 class Incidente {
-    constructor(indirizzo, targhe_coinvolte, data, ora, numero_feriti, numero_morti) {
+    constructor(indirizzo, targhe, num_morti, num_feriti, data) {
         this.indirizzo = indirizzo;
-        this.targhe_coinvolte = targhe_coinvolte;
+        this.targhe = targhe;
         this.data = data;
-        this.ora = ora;
-        this.numero_feriti = numero_feriti;
-        this.numero_morti = numero_morti
+        this.num_feriti = num_feriti;
+        this.num_morti = num_morti
     }
 }
 

@@ -29,12 +29,13 @@ const create_table = () => {
             table_data = new_element;
         },
         render: () => {
-            let line = "<table>";
+            let line = "<table class=table>";
             line += table_data.map( (incidente) => {
                 return `<tr><td>${incidente.indirizzo}</td><td>${incidente.targhe}</td><td>${incidente.num_morti}</td><td>${incidente.num_feriti}</td><td>${incidente.data}</td></tr>`;
             }).join("");
             line += "</table>";
-            binding_element.innerHTML = line;
+            binding_element.innerHTML = line; 
+        
         }
     }
 }

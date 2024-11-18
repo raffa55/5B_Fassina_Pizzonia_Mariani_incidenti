@@ -1,8 +1,17 @@
 import{ create_form,create_table } from "./components.js";
 import{Incidente} from "./classes.js";
+import { getCoordinates } from "./function.js";
+
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
-
+   const renderMap = (places) => {
+      places.forEach((place) => {
+          const marker = L.marker(place.coords).addTo(map);
+          marker.bindPopup(`<b>${place.name}</b>`);
+      });
+   }
+   let incidenti = [];
+   incidenti.push(conf_data.table_header)
    const form = create_form();
    form.bind_element(document.getElementById("div_form"));
    console.log(conf_data.config_input)
@@ -22,11 +31,7 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       maxZoom: maxZoom,
       attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
    }).addTo(map);
-   places.forEach((place) => {
-      const marker = L.marker(place.coords).addTo(map);
-      marker.bindPopup(`<b>${place.name}</b>`);
-   });
-
+   renderMap(places)
    document.getElementById("button_invia").onclick=()=>{
       let dati_input = conf_data.config_input.map((element)=>{
          let dato_input=document.getElementById(element[0]).value;
@@ -35,7 +40,19 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       
       })
       let nuovo_incidente = new Incidente(dati_input[0],dati_input[1],dati_input[2],dati_input[3],dati_input[4]);
+      getCoordinates(nuovo_incidente.indirizzo).then((luogo_incidente)=>{
+         places.push(luogo_incidente);
+         console.log(places)
+         renderMap(places);
+         
+         incidenti.push(nuovo_incidente);
+         table.config_header(incidenti);
+         table.render();
+      });
+      
+
    }
+
 
 })
 
