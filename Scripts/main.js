@@ -1,7 +1,7 @@
 import{ create_form,create_table } from "./components.js";
 import{Incidente} from "./classes.js";
 import { getCoordinates, hide, show } from "./function.js";
-
+import {download, upload} from "./cache.js";
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
    const renderMap = (places) => {
@@ -14,14 +14,24 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    incidenti.push(conf_data.table_header)
    const form = create_form();
    form.bind_element(document.getElementById("div_form"));
-   console.log(conf_data.config_input)
    form.config_input_element(conf_data.config_input);
    form.render();
    
    const table = create_table();
    table.bind_element(document.getElementById("div_table"));
    
-   
+   download().then((new_data) => {
+      new_data.forEach(() => {
+         getCoordinates(nuovo_incidente.indirizzo).then((luogo_incidente)=>{
+            places.push(luogo_incidente);
+      })
+         console.log(places)
+         renderMap(places);
+         incidenti = new_data
+            table.config_header(incidenti);
+            table.render();
+      });
+   })
    let places = [{name: "Piazza del Duomo",coords: [45.4639102, 9.1906426]}]
   
    let zoom = 12;
@@ -33,6 +43,7 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    }).addTo(map);
    renderMap(places)
    document.getElementById("button_invia").onclick=()=>{
+      hide(document.getElementById("div_form"));
       let dati_input = conf_data.config_input.map((element)=>{
          let dato_input=document.getElementById(element[0]).value;
          document.getElementById(element[0]).value = "";
@@ -40,16 +51,20 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       
       })
       let nuovo_incidente = new Incidente(dati_input[0],dati_input[1],dati_input[2],dati_input[3],dati_input[4]);
-      getCoordinates(nuovo_incidente.indirizzo).then((luogo_incidente)=>{
-         places.push(luogo_incidente);
-         console.log(places)
-         renderMap(places);
-         
-         incidenti.push(nuovo_incidente);
-         table.config_header(incidenti);
-         table.render();
+      download().then( (new_data) => {
+         getCoordinates(nuovo_incidente.indirizzo).then((luogo_incidente)=>{
+            places.push(luogo_incidente);
+            console.log(places)
+            renderMap(places);
+            incidenti = new_data
+            incidenti.push(nuovo_incidente);
+            upload(incidenti).then(() => {
+               table.config_header(incidenti);
+               table.render();
+            });
+         });
       });
-      
+  
 
    }
 

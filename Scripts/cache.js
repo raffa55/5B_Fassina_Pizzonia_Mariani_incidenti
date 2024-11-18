@@ -1,4 +1,4 @@
-const upload = () => {
+export const upload = () => {
     return new Promise(()=>{
       fetch("conf.json").then(r => r.json()).then(confData => {
         try{
@@ -22,7 +22,7 @@ const upload = () => {
     })
 }
   
-  const download = () => {
+  export const download = () => {
     return new Promise((resolve,reject)=>{
       fetch("conf.json").then(r => r.json()).then(confData => {
         try{
