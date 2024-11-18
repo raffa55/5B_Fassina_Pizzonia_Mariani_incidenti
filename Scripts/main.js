@@ -1,6 +1,6 @@
 import{ create_form,create_table } from "./components.js";
 import{Incidente} from "./classes.js";
-import { getCoordinates } from "./function.js";
+import { getCoordinates, hide, show } from "./function.js";
 
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
@@ -56,3 +56,6 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
 
 })
 
+document.getElementById("bottone_mostra").onclick = () => {
+   show(document.getElementById("div_form"));
+}
