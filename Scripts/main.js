@@ -86,10 +86,25 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
          document.getElementById(element[0]).value = "";
       })
    }
-
+   document.getElementById("bottone_mostra").onclick = () => {
+      show(document.getElementById("div_form"));
+   }
+   document.getElementById("bottone_filtra").onclick = () => {
+      const filtro = document.getElementById("input_filtro").value
+      let incidenti_filtrati = incidenti.map((incidente)=>{
+         if (incidente.indirizzo.includes(filtro) || incidente.targhe.includes(filtro) || incidente.data.includes(filtro)) return incidente
+      })
+      console.log(incidenti_filtrati)
+      incidenti_filtrati.forEach((nuovo_incidente) => {
+         console.log(nuovo_incidente);
+         getCoordinates(nuovo_incidente.indirizzo).then((luogo_incidente)=>{
+            places.push(luogo_incidente);
+            console.log(luogo_incidente);
+         renderMap(places);
+         table.config_header(incidenti);
+         table.render();
+         })
+      });
+   }
 
 })
-
-document.getElementById("bottone_mostra").onclick = () => {
-   show(document.getElementById("div_form"));
-}
