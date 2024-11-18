@@ -1,5 +1,6 @@
 import{ create_form,create_table } from "./components.js";
 import{Incidente} from "./classes.js";
+import { getCoordinates,renderMap } from "./function.js";
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
    let incidenti = [];
@@ -36,9 +37,14 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       
       })
       let nuovo_incidente = new Incidente(dati_input[0],dati_input[1],dati_input[2],dati_input[3],dati_input[4]);
+      let luogo_incidente = getCoordinates(nuovo_incidente.indirizzo);
+      places.push(luogo_incidente);
+      renderMap(places);
+      
       incidenti.push(nuovo_incidente);
       table.config_header(incidenti);
       table.render();
+
    }
 
 
