@@ -1,4 +1,4 @@
-export const upload = () => {
+export const upload = (data) => {
     return new Promise(()=>{
       fetch("conf.json").then(r => r.json()).then(confData => {
         try{
@@ -36,7 +36,7 @@ export const upload = () => {
               key: confData.key
             })
           }).then(r => r.json())
-          .then(data => {resolve(data);})
+          .then(data => {resolve(data.result);})
         }catch(error) {
           reject(error)
         }
