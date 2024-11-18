@@ -1,5 +1,5 @@
 export const upload = (data) => {
-    return new Promise(()=>{
+    return new Promise((resolve)=>{
       fetch("conf.json").then(r => r.json()).then(confData => {
         try{
           fetch(confData.url + "set", {
@@ -13,7 +13,7 @@ export const upload = (data) => {
               value: data
             })
           }).then(r => r.json())
-            .then(r => {console.log(r);})
+            .then(r => {resolve(r.result);})
         }
         catch(error){
           reject(error)
