@@ -2,7 +2,8 @@ import{ create_form,create_table } from "./components.js";
 import{Incidente} from "./classes.js";
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
-
+   let incidenti = [];
+   incidenti.push(conf_data.table_header)
    const form = create_form();
    form.bind_element(document.getElementById("div_form"));
    console.log(conf_data.config_input)
@@ -35,7 +36,11 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       
       })
       let nuovo_incidente = new Incidente(dati_input[0],dati_input[1],dati_input[2],dati_input[3],dati_input[4]);
+      incidenti.push(nuovo_incidente);
+      table.config_header(incidenti);
+      table.render();
    }
+
 
 })
 
