@@ -1,4 +1,4 @@
-import { create_form,create_table } from "./components.js";
+import { create_form,create_table,create_filter} from "./components.js";
 import {Incidente} from "./classes.js";
 import {getCoordinates,hide, show } from "./function.js";
 import {download, upload} from "./cache.js";
@@ -36,6 +36,7 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    renderMap(places)
 
    incidenti.push(conf_data.table_header)
+
    const form = create_form();
    form.bind_element(document.getElementById("div_form"));
    form.config_input_element(conf_data.config_input);
@@ -43,6 +44,11 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    
    const table = create_table();
    table.bind_element(document.getElementById("div_table"));
+
+   const filter = create_filter();
+   filter.bind_element(document.getElementById("div_filtro"));
+   filter.set_configuration(conf_data.config_filter);
+   filter.render()
    
    download().then((new_data) => {
       new_data.forEach((nuovo_incidente) => {
@@ -101,14 +107,17 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    }
 
    document.getElementById("bottone_filtra").onclick = () => {
-      const filtro = document.getElementById("input_filtro").value
+      let datiFiltro = conf_data.config_filter.map((element) => {
+         return document.getElementById(element[0]).value;
+      })
+
       download().then((new_data) => {
          incidenti = new_data;
          let incidenti_filtrati = [];
          for(let i = 0;i < incidenti.length;i++){
-            console.log(incidenti[i].indirizzo.includes(filtro) || incidenti[i].targhe.includes(filtro) || incidenti[i].data.includes(filtro));
-            if (incidenti[i].indirizzo.includes(filtro) || incidenti[i].targhe.includes(filtro) || incidenti[i].data.includes(filtro)){
-               incidenti_filtrati.push(incidenti[i])
+            console.log(incidenti[i].indirizzo.includes(datiFiltro[0]) || incidenti[i].targhe.includes(datiFiltro[0]) || incidenti[i].data.includes(datiFiltro[0]));
+            if (incidenti[i].indirizzo.includes(datiFiltro[0]) || incidenti[i].targhe.includes(datiFiltro[0]) || incidenti[i].data.includes(datiFiltro[0])){
+               incidenti_filtrati.push(incidenti[i]);
             } 
          }
 

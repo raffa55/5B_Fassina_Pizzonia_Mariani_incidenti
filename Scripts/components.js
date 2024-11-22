@@ -43,4 +43,24 @@ const create_table = () => {
     }
 }
 
-export{create_form,create_table};
+const create_filter = () => {
+    let configuration_data;
+    let binding_element;
+    return {
+        set_configuration: (new_configuration) => {
+            configuration_data = new_configuration
+        },
+        bind_element: (new_element) => {
+            binding_element = new_element;
+        },
+        render: () => {
+            let line = "";
+            line += configuration_data.map((element) => { return (element[0] + `<input id="${element[0]}" type="${element[1]}">`)}).join("");
+            line += `<button id="bottone_filtra" type="button"> Filtra </button>`;
+            line += `<button id="bottone_cancella_filtro" type="button"> Cancella filtro </button>`;
+            binding_element.innerHTML = line;
+        }
+    }
+}
+
+export{create_form,create_table,create_filter};
