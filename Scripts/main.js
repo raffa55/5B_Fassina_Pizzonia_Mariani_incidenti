@@ -1,9 +1,11 @@
-import { create_form,create_table,create_filter} from "./components.js";
+import { create_form,create_table,create_filter,create_login} from "./components.js";
 import {Incidente} from "./classes.js";
 import {getCoordinates,hide, show } from "./function.js";
-import {download, upload} from "./cache.js";
+import {download, upload, login} from "./cache.js";
 
 fetch("conf.json").then(r => r.json()).then((conf_data) => {
+
+   let isLoggedIn = false;
 
    //upload([]).then(console.log);
 
@@ -49,6 +51,11 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
    filter.bind_element(document.getElementById("div_filtro"));
    filter.set_configuration(conf_data.config_filter);
    filter.render()
+
+   const form_login = create_login();
+   form_login.bind_element(document.getElementById("form_login"));
+   form_login.set_configuration(conf_data.config_login);
+   form_login.render()
    
    download().then((new_data) => {
       new_data.forEach((nuovo_incidente) => {
@@ -63,7 +70,30 @@ fetch("conf.json").then(r => r.json()).then((conf_data) => {
       });
    })
   
-   
+   document.getElementById("bottone_login").onclick=()=>{
+      show(document.getElementById("form_login"));
+   }
+
+   document.getElementById("bottone_login_invia").onclick=()=>{
+      let datiLogin = conf_data.config_login.map((element) => {
+         return document.getElementById(element[0]).value;
+      })
+      login(datiLogin[0],datiLogin[1]).then((response) => {
+         isLoggedIn = response
+         if (isLoggedIn) {
+            hide(document.getElementById("div_login"));
+            show(document.getElementById("full_div_form"));
+         } else {
+            alert("Username o password errati")
+            hide(document.getElementById("form_login"))
+            conf_data.config_login.forEach((element) => {
+               return document.getElementById(element[0]).value = "";
+            })
+         }
+      })
+
+      
+   }
 
    document.getElementById("button_invia").onclick=()=>{
 
